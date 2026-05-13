@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <h1>Meu Blog</h1>
+
+    <a href="/cadastrar">
+        <button>Novo Post</button>
+    </a>
+
+    <% posts.forEach(post => { %>
+
+        <div class="card">
+
+            <h2><%= post.titulo %></h2>
+
+            <h4><%= post.resumo %></h4>
+
+            <p><%= post.conteudo %></p>
+
+        </div>
+
+    <% }) %>
+
+</body>
+</html>
