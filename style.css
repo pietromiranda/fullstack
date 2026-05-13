@@ -1,0 +1,70 @@
+/* seletor por TAG */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+/* seletor por TAG */
+nav {
+    background-color: #333;
+    padding: 15px;
+    text-align: center;
+}
+
+/* seletor por TAG */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+/* pseudo-classe */
+nav a:hover {
+    color: yellow;
+}
+
+/* seletor por CLASSE */
+.container {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* seletor por TAG */
+h1 {
+    color: #333;
+}
+
+/* seletor por TAG */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* seletor por TAG */
+table, th, td {
+    border: 1px solid black;
+}
+
+/* seletor por TAG */
+th {
+    background-color: #555;
+    color: white;
+}
+
+/* seletor por TAG */
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* pseudo-classe */
+tr:hover {
+    background-color: #f5f5f5;
+}
