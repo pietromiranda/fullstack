@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canvas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Canvas</h1>
+
+  <canvas id="canvas" width="300" height="300"></canvas>
+
+  <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    // ── FUNÇÕES OBRIGATÓRIAS ──────────────────────────────
+
+    function desenhar_quadrado(x, y, largura, altura, cor) {
+      ctx.fillStyle = cor;
+      ctx.fillRect(x, y, largura, altura);
+    }
+
+    function desenhar_linha(x1, y1, x2, y2, cor, espessura) {
+      ctx.strokeStyle = cor;
+      ctx.lineWidth = espessura;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+
+    function desenhar_arco(x, y, raio, cor, preenchido) {
+      ctx.beginPath();
+      ctx.arc(x, y, raio, 0, Math.PI * 2);
+      if (preenchido) {
+        ctx.fillStyle = cor;
+        ctx.fill();
+      } else {
+        ctx.strokeStyle = cor;
+        ctx.stroke();
+      }
+    }
+
+    function escrever(texto, x, y, cor, tamanho) {
+      ctx.fillStyle = cor;
+      ctx.font = tamanho + "px Arial";
+      ctx.fillText(texto, x, y);
+    }
+
+    // ── DESENHO DA CENA ───────────────────────────────────
+
+    // Céu (fundo verde-água)
+    desenhar_quadrado(0, 0, 300, 300, "#7fffd4");
+
+    // Sol
+    desenhar_arco(220, 60, 35, "#ffff00", true);
+
+    // Chão (faixa cinza)
+    desenhar_quadrado(0, 210, 300, 90, "#808080");
+
+    // Lago (canto inferior esquerdo) — arco semicircular
+    ctx.beginPath();
+    ctx.arc(0, 260, 60, 0, Math.PI * 2);
+    ctx.fillStyle = "#6699ff";
+    ctx.fill();
+
+    // ── ÁRVORE ESQUERDA ───────────────────────────────────
+    // Tronco
+    desenhar_quadrado(68, 180, 10, 35, "#5c3317");
+    // Copa
+    desenhar_arco(73, 172, 22, "#228b22", true);
+
+    // ── ÁRVORE DIREITA ────────────────────────────────────
+    // Tronco
+    desenhar_quadrado(238, 200, 10, 28, "#5c3317");
+    // Copa
+    desenhar_arco(243, 193, 18, "#228b22", true);
+
+    // ── CASA ──────────────────────────────────────────────
+    // Parede
+    desenhar_quadrado(120, 170, 80, 60, "#8b4513");
+
+    // Telhado (triângulo com linhas)
+    desenhar_linha(120, 170, 160, 135, "#cc3300", 3);
+    desenhar_linha(200, 170, 160, 135, "#cc3300", 3);
+    desenhar_linha(120, 170, 200, 170, "#cc3300", 1);
+
+    // Preenche telhado
+    ctx.beginPath();
+    ctx.moveTo(120, 170);
+    ctx.lineTo(160, 135);
+    ctx.lineTo(200, 170);
+    ctx.closePath();
+    ctx.fillStyle = "#cc3300";
+    ctx.fill();
+
+    // Porta
+    desenhar_quadrado(150, 200, 20, 30, "#5c2000");
+    // Divisão da porta
+    desenhar_linha(160, 200, 160, 230, "#3a1500", 1);
+
+    // Janela esquerda
+    desenhar_quadrado(126, 183, 18, 15, "#87ceeb");
+    // Janela direita
+    desenhar_quadrado(176, 183, 18, 15, "#87ceeb");
+
+    // ── TEXTO ─────────────────────────────────────────────
+    escrever("Minha Casa", 98, 128, "#333333", 13);
+
+  </script>
+
+</body>
+</html>
