@@ -1,0 +1,23 @@
+body{
+    background: #222;
+    color: white;
+    font-family: Arial;
+}
+
+.box{
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button{
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}

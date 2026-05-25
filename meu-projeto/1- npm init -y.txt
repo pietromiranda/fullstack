@@ -1,0 +1,109 @@
+1- npm init -y
+2- npm install express
+3 - meu-projeto/
+│
+├── servidor.js
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+4- CRIAR SERVIDOR
+const express = require('express');
+
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+app.post('/cadastro', (req, res) => {
+
+    const nome = req.body.nome;
+
+    console.log(nome);
+
+    res.send(`
+        <h1>Usuário cadastrado!</h1>
+        <p>Nome: ${nome}</p>
+    `);
+
+});
+
+app.listen(3000, () => {
+    console.log('Servidor rodando!');
+});
+
+5- CRIAR HTML
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Cadastro</h1>
+
+        <form action="/cadastro" method="POST">
+
+            <input
+                type="text"
+                name="nome"
+                placeholder="Digite seu nome"
+                required
+            >
+
+            <button type="submit">
+                Enviar
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+
+
+6- CSS
+body{
+    background: #222;
+    color: white;
+    font-family: Arial;
+}
+
+.box{
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button{
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+7 - SCRIPT.JS
+console.log("Site carregado!");
+
+8 - como achar servidor no cm
+DIR
+CD - DOCUMENTS - CD- MEU-PROJETO
+
+9 - RODAR PROJETO
+NO TERMINAL - node servidor.js
+APARECE --- servidor rodando!
+
+10- NAVEGADOR
+
+http://localhost:3000
