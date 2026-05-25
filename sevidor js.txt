@@ -1,0 +1,214 @@
+sevidor js
+
+const express = require('express');
+
+const { MongoClient } = require('mongodb');
+
+const app = express();
+
+
+// CONFIG
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+
+app.set('view engine', 'ejs');
+
+
+// MONGODB
+const uri = 'mongodb://127.0.0.1:27017';
+
+const client = new MongoClient(uri);
+
+
+// CONECTAR
+async function conectarBanco(){
+
+    await client.connect();
+
+    console.log('MongoDB conectado!');
+
+}
+
+conectarBanco();
+
+
+// HOME
+app.get('/', (req, res) => {
+
+    res.render('index');
+
+});
+
+
+// CADASTRAR USUÁRIO
+app.post('/cadastro', async (req, res) => {
+
+    const db = client.db('meu_site');
+
+    const usuarios = db.collection('usuarios');
+
+    await usuarios.insertOne({
+
+        nome: req.body.nome
+
+    });
+
+    res.redirect('/usuarios');
+
+});
+
+
+// LISTAR USUÁRIOS
+app.get('/usuarios', async (req, res) => {
+
+    const db = client.db('meu_site');
+
+    const usuarios = db.collection('usuarios');
+
+    const listaUsuarios = await usuarios.find().toArray();
+
+    res.render('usuarios', {
+
+        usuarios: listaUsuarios
+
+    });
+
+});
+
+
+// SERVIDOR
+app.listen(3000, () => {
+
+    console.log('Servidor rodando!');
+
+});
+
+INDEX.EJS
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Cadastro</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Cadastro de Usuário</h1>
+
+        <form action="/cadastro" method="POST">
+
+            <input
+                type="text"
+                name="nome"
+                placeholder="Digite o nome"
+                required
+            >
+
+            <button type="submit">
+                Salvar
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="/usuarios">
+            Ver usuários
+        </a>
+
+    </div>
+
+</body>
+</html>
+
+USUARIOS.EJS
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Usuários</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Usuários cadastrados</h1>
+
+        <% usuarios.forEach(usuario => { %>
+
+            <p><%= usuario.nome %></p>
+
+        <% }) %>
+
+        <br>
+
+        <a href="/">
+            Voltar
+        </a>
+
+    </div>
+
+</body>
+</html>
+
+STYLE.CSS
+
+body{
+
+    background: #222;
+
+    color: white;
+
+    font-family: Arial;
+
+}
+
+.box{
+
+    width: 300px;
+
+    margin: 100px auto;
+
+    text-align: center;
+
+}
+
+input{
+
+    width: 100%;
+
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+}
+
+button{
+
+    width: 100%;
+
+    padding: 10px;
+
+    cursor: pointer;
+
+}
+
+CONECTAR MONGO
+
+mongodb://127.0.0.1:27017
+
+npm install express ejs mongodb
